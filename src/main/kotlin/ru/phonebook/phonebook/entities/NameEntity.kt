@@ -13,4 +13,7 @@ open class NameEntity {
     @Column(name = "name", nullable = false)
     open var name: String? = null
 
+    @OneToMany(mappedBy = "refNameEntity")
+    open var refNameEntity: MutableList<ContactsEntity>? = null
+
 }
