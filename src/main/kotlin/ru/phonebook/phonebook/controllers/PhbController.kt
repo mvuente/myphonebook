@@ -12,7 +12,7 @@ import ru.phonebook.phonebook.services.NameService
 class PhbController (private val nameService: NameService){
     @GetMapping("{name}")
     fun hello(@PathVariable name: String): ResponseEntity<Any> {
-        val contact_name = nameService.findByNameStartsWithAndRegion(name)
+        val contact_name = nameService.findByName(name)
         return if (contact_name != null)
             ResponseEntity.ok(contact_name)
         else

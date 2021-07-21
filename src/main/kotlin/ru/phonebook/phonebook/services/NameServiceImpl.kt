@@ -10,8 +10,8 @@ class NameServiceImpl(private val nameRepository: NameRepository):NameService {
         return nameRepository.findAll()
     }
 
-    override fun findByNameStartsWithAndRegion(name:String): NameEntity? {
-        return nameRepository.findByNameStartsWithAndRegion(name)
+    override fun findByName(name:String): NameEntity? {
+        return nameRepository.findByName(name)
     }
 
 }

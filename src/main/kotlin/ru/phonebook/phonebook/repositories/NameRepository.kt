@@ -6,5 +6,6 @@ import ru.phonebook.phonebook.entities.NameEntity
 
 @Repository
 interface NameRepository : JpaRepository<NameEntity, Int> {
-    fun findByNameStartsWithAndRegion(name: String): NameEntity?
+    fun findByName(name: String): NameEntity?
+
 }
