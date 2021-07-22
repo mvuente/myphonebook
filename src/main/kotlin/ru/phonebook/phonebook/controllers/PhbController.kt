@@ -9,7 +9,7 @@ import ru.phonebook.phonebook.services.NameService
 
 @RestController
 @RequestMapping(value = ["/hello/"])
-class PhbController (private val nameService: NameService){
+class PhbController(private val nameService: NameService) {
     @GetMapping("{name}")
     fun hello(@PathVariable name: String): ResponseEntity<Any> {
         val contact_name = nameService.findByName(name)
@@ -17,7 +17,6 @@ class PhbController (private val nameService: NameService){
             ResponseEntity.ok(contact_name)
         else
             ResponseEntity.notFound().build()
-
 
 
     }

@@ -4,5 +4,5 @@ import ru.phonebook.phonebook.entities.NameEntity
 
 interface NameService {
     fun findAll(): List<NameEntity>
-    fun findByName(name:String):NameEntity?
+    fun findByName(name: String): NameEntity?
 }
