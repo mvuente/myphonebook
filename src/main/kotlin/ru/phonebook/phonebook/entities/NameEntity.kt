@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "name", schema = "public", catalog = "mvuente")
-data class NameEntity (
+ class NameEntity (
     @Id
     @Column(name = "id_name", nullable = false, insertable = false, updatable = false)
     val id_name: Int = 0,
@@ -29,10 +29,9 @@ data class NameEntity (
     @JoinColumn(name = "id_city", referencedColumnName = "id_city")
     open var refCitiesEntity: CitiesEntity? = null,
 
-    @OneToMany(mappedBy = "name",
-                fetch = FetchType.LAZY
-    )
-    val contacts: MutableList<ContactsEntity>? = null
+    @OneToMany(mappedBy = "name")
+    //@JoinColumn
+    val contacts: MutableList<ContactsEntity>
 
 
 

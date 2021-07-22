@@ -27,7 +27,7 @@ data class ContactsEntity (
 
     @ManyToOne
     @JoinColumn(name = "id_name")
-    val name: NameEntity? = null
+    private val name: NameEntity? = null
 
 )
 {}
