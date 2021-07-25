@@ -8,8 +8,8 @@ class PhonebookEntity( // no "data" class
     val name: String,
     var region: String,
     var city: String?,
-    var phone: String,
-    var email: String,
+   // var phone: String,
+    //var email: String,
     var comments: String?
 
 
@@ -18,7 +18,7 @@ class PhonebookEntity( // no "data" class
 
     fun copy(id: Int? = this.id, name: String = this.name,
              region: String = this.region, city: String? = this.city,
-             phone: String = this.phone, email: String = this.email,
+      //       phone: String = this.phone, email: String = this.email,
              comments: String? = this.comments) =
-        PhonebookEntity(name, region, city, phone, email, comments) // since this is no "data" class
+        PhonebookEntity(name, region, city, comments) // since this is no "data" class
 }

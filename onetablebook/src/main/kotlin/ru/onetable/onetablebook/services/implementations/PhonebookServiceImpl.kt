@@ -36,8 +36,8 @@ class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository)
                 name = request.name!!,
                 region = request.region!!,
                 city = request.city,
-                phone = request.phone!!,
-                email = request.email!!,
+               // phone = request.phone!!,
+               // email = request.email!!,
                 comments = request.comments
             )
         )
@@ -48,8 +48,8 @@ class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository)
         if (book != null) { // replace for exception
             book.region = request.region!!
             book.city = request.city!!
-            book.phone = request.phone!!
-            book.email = request.email!!
+           // book.phone = request.phone!!
+           // book.email = request.email!!
             book.comments = request.comments!!
 
             phonebookRepository.saveAndFlush(book
