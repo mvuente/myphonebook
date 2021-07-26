@@ -10,8 +10,6 @@ import ru.onetable.onetablebook.entities.PhonebookEntity
 interface PhonebookRepository : JpaRepository<PhonebookEntity, Int> { //Jpa inherits Crud
 //interface PhonebookRepository : CrudRepository<PhonebookEntity, Int> {
     fun findByName(name: String): PhonebookEntity?
-
-
     //fun delete(name: String)
     //fun addContact(request: SaveBookRequest)
     //fun editContact(name: String, request: SaveBookRequest)

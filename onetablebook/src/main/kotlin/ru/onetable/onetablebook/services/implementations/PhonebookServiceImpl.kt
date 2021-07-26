@@ -2,14 +2,17 @@ package ru.onetable.onetablebook.services.implementations
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import ru.onetable.onetablebook.entities.ContactsEntity
 import ru.onetable.onetablebook.entities.PhonebookEntity
 import ru.onetable.onetablebook.entities.SaveBookRequest
 import ru.onetable.onetablebook.repositories.PhonebookRepository
+import ru.onetable.onetablebook.repositories.ContactsRepository
 import ru.onetable.onetablebook.services.PhonebookService
 import java.util.Comparator
 
 @Service
-class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository) : PhonebookService {
+class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository,
+       private val contactsRepository: ContactsRepository) : PhonebookService {
 
     override fun findAll(): List<PhonebookEntity> {
         val result = phonebookRepository.findAll()
@@ -36,9 +39,16 @@ class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository)
                 name = request.name!!,
                 region = request.region!!,
                 city = request.city,
+                comments = request.comments
                // phone = request.phone!!,
                // email = request.email!!,
-                comments = request.comments
+            )
+        )
+        contactsRepository.saveAndFlush(
+            ContactsEntity(
+                phone = request.phone!!,
+                email = request.email!!,
+                book = findByName(request.name)!!
             )
         )
     }
