@@ -1,15 +1,12 @@
 package ru.onetable.onetablebook.services.implementations
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.onetable.onetablebook.entities.ContactsEntity
 import ru.onetable.onetablebook.entities.PhonebookEntity
 import ru.onetable.onetablebook.entities.SaveBookRequest
-import ru.onetable.onetablebook.entities.SaveContactRequest
 import ru.onetable.onetablebook.repositories.PhonebookRepository
 import ru.onetable.onetablebook.repositories.ContactsRepository
 import ru.onetable.onetablebook.services.PhonebookService
-import java.util.Comparator
 
 @Service
 class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository,
@@ -35,7 +32,7 @@ class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository,
     }
 
     override fun addContact(request: SaveBookRequest) {
-        phonebookRepository.saveAndFlush(
+        phonebookRepository.saveAndFlush( // first: creating new entity for phonebook
             PhonebookEntity(
                 name = request.name!!,
                 region = request.region!!,
@@ -43,10 +40,10 @@ class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository,
                 comments = request.comments
             )
         )
-        contactsRepository.saveAndFlush(
+        contactsRepository.saveAndFlush( // second: creating new entity for new contact
             ContactsEntity(
-                phone = request.phone!!,
-                email = request.email!!,
+                phone = request.phone!!, // regex kind of ^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$ is neede
+                email = request.email!!, // regex kind of ^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$ is needed
                 book = findByName(request.name)!!
             )
         )
@@ -60,8 +57,6 @@ class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository,
         if (book != null) { // replace for exception
             book.region = request.region!!
             book.city = request.city
-            // book.phone = request.phone!!
-            // book.email = request.email!!
             book.comments = request.comments
             phonebookRepository.saveAndFlush(book)
         }
@@ -87,8 +82,5 @@ class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository,
                 phonefound.email = request.email!!
                 contactsRepository.saveAndFlush(phonefound)
             }
-
     }
-
-
 }

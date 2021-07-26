@@ -30,5 +30,4 @@ abstract class BaseEntity<T> {
     override fun toString(): String {
         return "${this.javaClass.simpleName}(id=$id)"
     }
-//    abstract fun copy()
 }
