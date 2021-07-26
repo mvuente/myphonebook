@@ -5,10 +5,10 @@ import javax.persistence.*
 @Entity
 @Table(name = "contacts")
 class ContactsEntity( // no "data" class
-    val phone: String,
-    val email: String,
+    var phone: String,
+    var email: String,
 
-@ManyToOne
+    @ManyToOne
 @JoinColumn(name = "name_id")
 private val book: PhonebookEntity
 

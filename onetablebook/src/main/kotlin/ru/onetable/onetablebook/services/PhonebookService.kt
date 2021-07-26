@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query
 
 import ru.onetable.onetablebook.entities.PhonebookEntity
 import ru.onetable.onetablebook.entities.SaveBookRequest
+import ru.onetable.onetablebook.entities.SaveContactRequest
 
 interface PhonebookService {
     //@Query("select name from book group by region order by region", nativeQuery = true)

@@ -8,5 +8,7 @@ import ru.onetable.onetablebook.entities.PhonebookEntity
 
 @Repository
 interface ContactsRepository : JpaRepository<ContactsEntity, Int> {
-
+    fun findByPhone(phone: String): ContactsEntity?
+    fun findByEmail(email: String): ContactsEntity?
+    fun findByPhoneAndEmail(phone: String, email: String): ContactsEntity?
 }

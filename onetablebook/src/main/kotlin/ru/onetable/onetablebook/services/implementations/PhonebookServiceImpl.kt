@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service
 import ru.onetable.onetablebook.entities.ContactsEntity
 import ru.onetable.onetablebook.entities.PhonebookEntity
 import ru.onetable.onetablebook.entities.SaveBookRequest
+import ru.onetable.onetablebook.entities.SaveContactRequest
 import ru.onetable.onetablebook.repositories.PhonebookRepository
 import ru.onetable.onetablebook.repositories.ContactsRepository
 import ru.onetable.onetablebook.services.PhonebookService
@@ -40,8 +41,6 @@ class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository,
                 region = request.region!!,
                 city = request.city,
                 comments = request.comments
-               // phone = request.phone!!,
-               // email = request.email!!,
             )
         )
         contactsRepository.saveAndFlush(
@@ -54,29 +53,41 @@ class PhonebookServiceImpl(private val phonebookRepository: PhonebookRepository,
     }
 
     override fun editContact(name: String, request: SaveBookRequest) {
+        println(name)
+
         val book = phonebookRepository.findByName(name)
+        println(book)
         if (book != null) { // replace for exception
             book.region = request.region!!
-            book.city = request.city!!
-           // book.phone = request.phone!!
-           // book.email = request.email!!
-            book.comments = request.comments!!
-
-            phonebookRepository.saveAndFlush(book
-//                book.copy(
-//                    //id = request.id,
-//                    //name = request.name!!,
-//                    region = request.region!!,
-//                    city = request.city!!,
-//                    phone = request.phone!!,
-//                    email = request.email!!,
-//                    comments = request.comments!!
-//                )
-                    //id = request.id,
-                    //name = request.name!!,
-
-            )
+            book.city = request.city
+            // book.phone = request.phone!!
+            // book.email = request.email!!
+            book.comments = request.comments
+            phonebookRepository.saveAndFlush(book)
         }
+            val phonefound = contactsRepository.findByPhone(request.phone!!)
+            val emailfound = contactsRepository.findByEmail(request.email!!)
+            if (phonefound == null && emailfound == null)
+            {
+                contactsRepository.saveAndFlush(
+                    ContactsEntity(
+                        phone = request.phone!!,
+                        email = request.email!!,
+                        book = findByName(name)!!
+                    )
+                )
+            }
+            else if (phonefound == null && emailfound != null)
+            {
+                emailfound.phone = request.phone!!
+                contactsRepository.saveAndFlush(emailfound)
+            }
+            else if (emailfound == null && phonefound != null)
+            {
+                phonefound.email = request.email!!
+                contactsRepository.saveAndFlush(phonefound)
+            }
+
     }
 
 
